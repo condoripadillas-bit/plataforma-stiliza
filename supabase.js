@@ -5,7 +5,7 @@
 //   2) js/supabase-config.js
 //   3) js/supabase.js
 
-const SUPABASE_URL = (window.STILIZA_SUPABASE && window.STILIZA_SUPABASE.url) || 'https://TU-PROYECTO.supabase.co';
+const SUPABASE_URL = (window.STILIZA_SUPABASE && window.STILIZA_SUPABASE.url) || 'https://ldezoxhgecvfxpudsqlb.supabase.co';
 const SUPABASE_ANON_KEY = (window.STILIZA_SUPABASE && window.STILIZA_SUPABASE.anonKey) || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxkZXpveGhnZWN2ZnhwdWRzcWxiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkxNTMwNTgsImV4cCI6MjEwNDcyOTA1OH0.nRBHXgH-pKO0qu9pcFIIddKjql696puiqqRu_CUcdgU';
 
 let supabaseClient = null;
