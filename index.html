@@ -3,436 +3,327 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Dueño · Stiliza</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="css/dueno.css">
+    <title>Stiliza · Vestidos que te definen</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/catalogo.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script>
-        const tema = localStorage.getItem('theme_dueno') || 'light';
+        // Aplicar tema guardado inmediatamente
+        const tema = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', tema);
     </script>
 </head>
-<body class="panel-body">
+<body>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <div class="sidebar-logo">
-            <img src="../assets/logo.webp" alt="Stiliza" onerror="this.style.display='none'">
-            <span>Stiliza</span>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.webp" alt="Stiliza" class="logo-img" onerror="this.style.display='none'">
+                <div class="logo-text">
+                    <span class="logo-name">Stiliza</span>
+                    <span class="logo-sub">· vestidos que te definen</span>
+                </div>
+            </a>
+
+            <nav class="nav">
+                <a href="index.html" class="active">Inicio</a>
+                <a href="catalogo.html">Catálogo</a>
+                <a href="promociones.html">Promociones</a>
+                <a href="ubicacion.html">Ubicación</a>
+                <a href="contacto.html">Contacto</a>
+
+                <button id="toggleTheme" class="theme-toggle" aria-label="Cambiar tema">🌙</button>
+
+                <div id="userInfo" class="user-info" style="display:none;"></div>
+
+                <button id="btnAbrirLogin" class="btn-login">
+                    Ingresar
+                </button>
+
+                <a href="#" id="abrirCarrito" class="nav-carrito">
+                    <span class="carrito-icon">🛍️</span>
+                    <span class="carrito-text">Carrito</span>
+                    <span class="carrito-badge" id="carritoBadge">0</span>
+                </a>
+            </nav>
         </div>
-        <nav class="sidebar-nav">
-            <a href="#dashboard" class="nav-item active" data-section="dashboard">
-                <span>📊</span> Dashboard
-            </a>
-            <a href="#productos" class="nav-item" data-section="productos">
-                <span>👗</span> Productos
-            </a>
-            <a href="#reservas" class="nav-item" data-section="reservas">
-                <span>📋</span> Reservas
-            </a>
-            <a href="#empleados" class="nav-item" data-section="empleados">
-                <span>👥</span> Empleados
-            </a>
-            <a href="#estadisticas" class="nav-item" data-section="estadisticas">
-                <span>📈</span> Estadísticas
-            </a>
-            <a href="#destacados" class="nav-item" data-section="destacados">
-                <span>⭐</span> Destacados
-            </a>
-            <a href="#promociones" class="nav-item" data-section="promociones">
-                <span>🌸</span> Promociones
-            </a>
-            <a href="#mensajes" class="nav-item" data-section="mensajes">
-                <span>✉️</span> Mensajes
-            </a>
-        </nav>
-        <div class="sidebar-footer">
-            <button onclick="window.StilizaAuth.cerrarSesion()" class="btn-logout-panel">
-                Cerrar sesión
-            </button>
-            <a href="../index.html" class="link-cliente">← Ver tienda</a>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero-principal">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-texto">
+                    <span class="hero-etiqueta">✦ Nueva colección 2026</span>
+                    <h1>Viste tu esencia,<br><span>luce tu estilo</span></h1>
+                    <p>Piezas femeninas pensadas para quienes eligen elegancia en cada detalle. Descubre la nueva colección de Stiliza.</p>
+                    <div class="hero-botones">
+                        <a href="catalogo.html" class="btn btn-primario">Explorar colección</a>
+                        <a href="promociones.html" class="btn btn-secundario">Ver ofertas</a>
+                    </div>
+                </div>
+                <div class="hero-imagen">
+                    <img src="assets/logo.webp" alt="Stiliza" class="hero-logo" onerror="this.parentElement.innerHTML='<div class=\'hero-imagen-placeholder\'><span>✦</span></div>'">
+                </div>
+            </div>
         </div>
-    </aside>
+    </section>
 
-    <!-- MAIN -->
-    <main class="panel-main">
-        <header class="panel-header">
-            <h1 id="panelTitle">Dashboard</h1>
-            <div class="panel-user">
-                <button id="toggleThemePanel" class="theme-toggle" type="button" title="Tema">🌙</button>
-                <span id="ownerEmail">dueno@stiliza.com</span>
+    <!-- DESTACADOS -->
+    <section class="destacados">
+        <div class="container">
+            <div class="seccion-header">
+                <h2>Lo más destacado</h2>
+                <p>Piezas seleccionadas para realzar tu estilo único</p>
             </div>
-        </header>
+            <div class="grid" id="gridDestacados">
+                <!-- Solo lo que el dueño publica en Destacados -->
+            </div>
+            <div class="ver-todos">
+                <a href="catalogo.html" class="btn btn-outline">Ver todo el catálogo →</a>
+            </div>
+        </div>
+    </section>
 
-        <!-- DASHBOARD -->
-        <section id="section-dashboard" class="panel-section active">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <span class="stat-icon">🛍️</span>
-                    <div>
-                        <h3 id="statReservas">0</h3>
-                        <p>Reservas este mes</p>
+    <!-- BANNER PROMO -->
+    <section class="banner-promo">
+        <div class="container">
+            <div class="banner-promo-content">
+                <div class="banner-promo-texto">
+                    <span class="banner-etiqueta">🌸 Ofertas especiales</span>
+                    <h3>Hasta <span>30%</span> de descuento</h3>
+                    <p>En vestidos seleccionados de nuestra colección. Reserva con solo el 20% de anticipo.</p>
+                    <a href="promociones.html" class="btn btn-blanco">Ver promociones</a>
+                </div>
+                <div class="banner-promo-imagen"><span>✧</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CARACTERÍSTICAS -->
+    <section class="caracteristicas">
+        <div class="container">
+            <div class="caracteristicas-grid">
+                <div class="caracteristica">
+                    <span class="caracteristica-icon">✧</span>
+                    <h4>Diseño exclusivo</h4>
+                    <p>Piezas únicas diseñadas con pasión y atención al detalle.</p>
+                </div>
+                <div class="caracteristica">
+                    <span class="caracteristica-icon">✦</span>
+                    <h4>Reserva con 20%</h4>
+                    <p>Paga solo el anticipo y recoge en 7 días en nuestra boutique.</p>
+                </div>
+                <div class="caracteristica">
+                    <span class="caracteristica-icon">♡</span>
+                    <h4>Calidad premium</h4>
+                    <p>Telas seleccionadas y acabados de alta costura.</p>
+                </div>
+                <div class="caracteristica">
+                    <span class="caracteristica-icon">✧</span>
+                    <h4>Atención personalizada</h4>
+                    <p>Te asesoramos para encontrar el vestido perfecto.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo">Stiliza<span>·</span></a>
+                    <p>Vestidos que te definen.</p>
+                </div>
+                <div class="footer-col">
+                    <h5>Enlaces</h5>
+                    <a href="catalogo.html">Catálogo</a>
+                    <a href="promociones.html">Promociones</a>
+                    <a href="ubicacion.html">Ubicación</a>
+                    <a href="contacto.html">Contacto</a>
+                </div>
+                <div class="footer-col">
+                    <h5>Contacto</h5>
+                    <p>+591 74954029</p>
+                    <p>info@stiliza.com</p>
+                    <p>Mercado Central Satélite Norte, Warnes</p>
+                </div>
+                <div class="footer-col">
+                    <h5>Síguenos</h5>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/condoripadillas" target="_blank" rel="noopener">Instagram</a>
+                        <a href="https://www.facebook.com/share/19QPyMTczA/" target="_blank" rel="noopener">Facebook</a>
+                        <a href="https://www.tiktok.com/@stilizavestidoselegancia" target="_blank" rel="noopener">TikTok</a>
                     </div>
                 </div>
-                <div class="stat-card">
-                    <span class="stat-icon">💰</span>
-                    <div>
-                        <h3 id="statIngresos">Bs 0</h3>
-                        <p>Ingresos (anticipos)</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-icon">👗</span>
-                    <div>
-                        <h3 id="statProductos">0</h3>
-                        <p>Productos activos</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-icon">⏳</span>
-                    <div>
-                        <h3 id="statPendientes">0</h3>
-                        <p>Por recoger</p>
-                    </div>
-                </div>
             </div>
+            <div class="footer-bottom">
+                <small>© 2026 Stiliza · Todos los derechos reservados</small>
+            </div>
+        </div>
+    </footer>
 
-            <div class="dashboard-row">
-                <div class="card">
-                    <h3>Últimas reservas</h3>
-                    <div id="ultimasReservas" class="tabla-simple">
-                        <p class="empty-msg">Aún no hay reservas</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <h3>Empleado con más ventas</h3>
-                    <div id="topEmpleado" class="top-empleado">
-                        <p class="empty-msg">Sin datos aún</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- PRODUCTOS -->
-        <section id="section-productos" class="panel-section">
-            <div class="section-actions">
-                <button class="btn btn-primario" id="btnNuevoProducto">+ Nuevo producto</button>
-            </div>
-            <div class="card">
-                <div id="listaProductos" class="productos-admin">
-                    <p class="empty-msg">Cargando productos...</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- RESERVAS -->
-        <section id="section-reservas" class="panel-section">
-            <div class="card">
-                <div class="filtros-admin">
-                    <button class="filtro-admin active" data-filtro="todas">Todas</button>
-                    <button class="filtro-admin" data-filtro="pendiente">Pendientes</button>
-                    <button class="filtro-admin" data-filtro="recogido">Recogidas</button>
-                    <button class="filtro-admin" data-filtro="expirado">Expiradas</button>
-                </div>
-                <div id="listaReservas" class="tabla-admin">
-                    <p class="empty-msg">No hay reservas registradas</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- EMPLEADOS -->
-        <section id="section-empleados" class="panel-section">
-            <div class="section-actions">
-                <button class="btn btn-primario" id="btnNuevoEmpleado">+ Crear empleado</button>
-            </div>
-            <div class="card">
-                <div id="listaEmpleados" class="empleados-lista">
-                    <p class="empty-msg">No hay empleados creados</p>
-                </div>
-            </div>
-
-            <!-- Formulario crear empleado -->
-            <div class="card" id="formEmpleadoCard" style="display:none; margin-top:1.5rem;">
-                <h3>Nuevo empleado</h3>
-                <form id="formNuevoEmpleado">
-                    <div class="form-group">
-                        <label>Nombre completo</label>
-                        <input type="text" id="empNombre" required placeholder="Ej: Ana López">
-                    </div>
-                    <div class="form-group">
-                        <label>Correo electrónico (para acceder)</label>
-                        <input type="email" id="empEmail" required placeholder="empleado@correo.com">
-                    </div>
-                    <div class="form-group">
-                        <label>Contraseña inicial *</label>
-                        <input type="password" id="empPassword" required minlength="6" placeholder="mín. 6 caracteres">
-                    </div>
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secundario" id="cancelarEmpleado">Cancelar</button>
-                        <button type="submit" class="btn btn-primario">Crear empleado</button>
-                    </div>
-                </form>
-            </div>
-        </section>
-
-        <!-- ESTADÍSTICAS -->
-        <section id="section-estadisticas" class="panel-section">
-            <div class="card">
-                <h3>Top 3 vestidos más vendidos</h3>
-                <div id="top3Vestidos" class="top3-wrap"></div>
-            </div>
-            <div class="card" style="margin-top:1.5rem;">
-                <h3>Distribución de ventas</h3>
-                <div class="chart-wrap">
-                    <canvas id="chartVestidos" height="240"></canvas>
-                </div>
-                <div id="graficoVestidos" style="display:none;"></div>
-            </div>
-            <div class="card" style="margin-top:1.5rem;">
-                <h3>Ventas por empleado</h3>
-                <div class="chart-wrap" style="max-width:280px;">
-                    <canvas id="chartEmpleados" height="220"></canvas>
-                </div>
-                <div id="graficoEmpleados" class="emp-stats-list"></div>
-            </div>
-        </section>
-
-        <!-- PROMOCIONES -->
-        
-        <section id="section-destacados" class="panel-section">
-            <div class="section-actions">
-                <button class="btn btn-primario" id="btnNuevoDestacado">+ Agregar destacado</button>
-            </div>
-            <div class="card">
-                <p style="color:var(--text-muted);margin-bottom:1rem;">Estos vestidos aparecen en la portada en “Lo más destacado”.</p>
-                <div id="listaDestacados" class="destacados-admin"></div>
-            </div>
-            <div class="modal-overlay" id="modalDestacado">
-                <div class="modal-pago modal-destacado-form" style="max-width:560px;">
-                    <button class="cerrar-modal" id="cerrarModalDestacado">✕</button>
-                    <div class="modal-header">
-                        <h2>Nuevo vestido destacado</h2>
-                    </div>
-                    <p class="modal-sub">Se muestra en la portada. El cliente puede añadirlo al carrito sin ir al catálogo.</p>
-                    <form id="formDestacado">
-                        <div class="form-group">
-                            <label>Nombre del vestido *</label>
-                            <input type="text" id="destNombre" required placeholder="Ej: Vestido Gala Rubí">
-                        </div>
-                        <div class="form-group">
-                            <label>Descripción</label>
-                            <textarea id="destDesc" rows="3" placeholder="Describe el vestido..."></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Material / Tela</label>
-                            <input type="text" id="destMaterial" placeholder="Ej: Satén, tul, encaje...">
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Precio (Bs) *</label>
-                                <input type="number" id="destPrecio" min="0" step="0.01" required placeholder="0.00">
-                            </div>
-                            <div class="form-group">
-                                <label>Categoría</label>
-                                <select id="destCat">
-                                    <option value="gala">Gala</option>
-                                    <option value="boda">Boda</option>
-                                    <option value="quinceañera">Quinceañera</option>
-                                    <option value="fiesta">Fiesta</option>
-                                    <option value="casual">Casual</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Tallas disponibles</label>
-                            <div class="tallas-check" id="destTallasCheck">
-                                <label class="talla-chip"><input type="checkbox" name="destTalla" value="XS"> XS</label>
-                                <label class="talla-chip"><input type="checkbox" name="destTalla" value="S" checked> S</label>
-                                <label class="talla-chip"><input type="checkbox" name="destTalla" value="M" checked> M</label>
-                                <label class="talla-chip"><input type="checkbox" name="destTalla" value="L" checked> L</label>
-                                <label class="talla-chip"><input type="checkbox" name="destTalla" value="XL"> XL</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Imagen del vestido</label>
-                            <div class="img-upload-box" id="destImgUploadBox">
-                                <input type="file" id="destImagenFile" accept="image/*">
-                                <div class="img-upload-placeholder" id="destImgPlaceholder">
-                                    <span style="font-size:1.8rem;">📷</span>
-                                    <span>Haz clic o elige una foto</span>
-                                </div>
-                                <img id="destImagenPreviewImg" class="img-upload-preview" style="display:none;">
-                            </div>
-                            <input type="hidden" id="destImagen" value="">
-                        </div>
-                        <button type="submit" class="btn btn-primario" style="width:100%;">Guardar en destacados</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <section id="section-promociones" class="panel-section">
-            <div class="section-actions">
-                <button class="btn btn-primario" id="btnNuevaPromo">+ Nueva promoción</button>
-            </div>
-            <div class="card">
-                <div id="listaPromos" class="promos-admin">
-                    <p class="empty-msg">No hay promociones activas</p>
-                </div>
-            </div>
-            <div class="modal-overlay" id="modalPromo">
-                <div class="modal-admin">
-                    <button class="cerrar-modal" id="cerrarModalPromo">✕</button>
-                    <h3 id="tituloModalPromo">Nueva promoción</h3>
-                    <form id="formPromo">
-                        <div class="form-group">
-                            <label>Título *</label>
-                            <input type="text" id="promoTitulo" required placeholder="Ej: Pack novia + damas">
-                        </div>
-                        <div class="form-group">
-                            <label>Descripción</label>
-                            <textarea id="promoDesc" rows="3" placeholder="Detalle de la oferta"></textarea>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Descuento %</label>
-                                <input type="number" id="promoDescPct" min="0" max="100" value="20">
-                            </div>
-                            <div class="form-group">
-                                <label>Categoría</label>
-                                <select id="promoCat">
-                                    <option value="boda">Boda</option>
-                                    <option value="quinceañera">Quinceañera</option>
-                                    <option value="gala">Gala</option>
-                                    <option value="fiesta">Fiesta</option>
-                                    <option value="casual">Casual</option>
-                                    <option value="general">General</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Etiqueta (texto corto)</label>
-                            <input type="text" id="promoLabel" placeholder="Ej: -20% · Navidad">
-                        </div>
-                        <div class="form-group">
-                            <label>Precio referencia (Bs) — opcional</label>
-                            <input type="number" id="promoPrecioBase" min="0" step="0.01" placeholder="Ej: 800 (antes del descuento)">
-                            <small style="color:var(--text-muted);font-size:0.8rem;">Si lo pones, el cliente agrega la promo al carrito con el precio ya rebajado.</small>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Duración (días) *</label>
-                                <input type="number" id="promoDias" min="1" value="20" required>
-                            </div>
-                            <div class="form-group">
-                                <label>O fecha de fin</label>
-                                <input type="date" id="promoFechaFin">
-                            </div>
-                        </div>
-                        <p style="font-size:0.82rem;color:var(--text-muted);margin:-0.4rem 0 0.8rem;">Si pones días, el contador baja solo cada día. Al llegar a 0 se oculta sola.</p>
-                        <div class="form-group">
-                            <label>Imagen</label>
-                            <input type="file" id="promoImagenFile" accept="image/*">
-                            <input type="hidden" id="promoImagen" value="">
-                            <div id="promoImagenPreview" style="margin-top:0.5rem;display:none;">
-                                <img id="promoImagenPreviewImg" src="" style="max-width:120px;border-radius:12px;">
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primario" style="width:100%;">Guardar promoción</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-    
-            <section id="section-mensajes" class="panel-section">
-                <div class="section-header">
-                    <h2>Mensajes de contacto</h2>
-                </div>
-                <div class="card-panel" id="listaMensajes">
-                    <p class="empty-msg">Los mensajes del formulario de contacto aparecerán aquí</p>
-                </div>
-            </section>
-
-        </main>
-
-    <!-- MODAL NUEVO PRODUCTO -->
-    <div class="modal-overlay" id="modalProducto">
-        <div class="modal-pago" style="max-width:560px;">
-            <button class="cerrar-modal" id="cerrarModalProducto">✕</button>
+    <!-- MODAL LOGIN -->
+    <div class="modal-overlay" id="modalLogin">
+        <div class="modal-login">
+            <button class="cerrar-modal" id="cerrarModalLogin">✕</button>
             <div class="modal-header">
-                <h2>Nuevo / Editar producto</h2>
+                <span class="modal-icon">✦</span>
+                <h2>Ingresar</h2>
+                <p class="modal-sub">Solo necesitas tu correo electrónico</p>
             </div>
-            <form id="formProducto">
+            <form id="formLogin">
                 <div class="form-group">
-                    <label>Nombre del vestido *</label>
-                    <input type="text" id="prodNombre" required>
-                </div>
-                <div class="form-group">
-                    <label>Descripción</label>
-                    <textarea id="prodDesc" rows="3" style="width:100%;padding:0.7rem;border-radius:12px;border:1.5px solid var(--input-border);background:var(--input-bg);color:var(--text-primary);"></textarea>
+                    <label for="loginName">Nombre (opcional)</label>
+                    <input type="text" id="loginName" placeholder="Ej: María González">
                 </div>
                 <div class="form-group">
-                    <label>Material / Tela</label>
-                    <input type="text" id="prodMaterial" placeholder="Ej: Satén, tul, encaje...">
+                    <label for="loginEmail">Correo electrónico *</label>
+                    <input type="email" id="loginEmail" placeholder="tu@correo.com" required>
                 </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Categoría *</label>
-                        <select id="prodCategoria" required style="width:100%;padding:0.7rem;border-radius:40px;border:1.5px solid var(--input-border);background:var(--input-bg);">
-                            <option value="gala">Gala</option>
-                            <option value="casual">Casual</option>
-                            <option value="fiesta">Fiesta</option>
-                            <option value="boda">Boda</option>
-                            <option value="quinceañera">Quinceañera</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Precio (Bs) *</label>
-                        <input type="number" id="prodPrecio" step="0.01" min="0" required>
-                    </div>
+                <div class="form-group" id="loginPassGroup" style="display:none;">
+                    <label for="loginPassword">Contraseña *</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" minlength="6">
                 </div>
-                <div class="form-group">
-                    <label>Imagen del vestido</label>
-                    <div class="img-upload-box" id="imgUploadBox">
-                        <input type="file" id="prodImagenFile" accept="image/*">
-                        <div class="img-upload-placeholder" id="imgUploadPlaceholder">
-                            <span style="font-size:1.8rem;">📷</span>
-                            <span>Haz clic o arrastra una foto aquí</span>
-                            <small>JPG, PNG o WEBP</small>
-                        </div>
-                        <div id="prodImagenPreview" class="img-upload-preview" style="display:none;">
-                            <img id="prodImagenPreviewImg" src="" alt="Vista previa">
-                            <button type="button" class="img-remove" id="btnQuitarImg" title="Quitar">✕</button>
-                        </div>
-                    </div>
-                    <input type="hidden" id="prodImagen" value="">
-                </div>
-                <div class="form-group">
-                    <label>Tallas disponibles</label>
-                    <div class="tallas-check">
-                        <label><input type="checkbox" value="XS" checked> XS</label>
-                        <label><input type="checkbox" value="S" checked> S</label>
-                        <label><input type="checkbox" value="M" checked> M</label>
-                        <label><input type="checkbox" value="L" checked> L</label>
-                        <label><input type="checkbox" value="XL" checked> XL</label>
-                    </div>
-                </div>
-                <button type="submit" class="btn-pagar">Guardar producto</button>
+                    
+                </p>
+                <button type="submit" class="btn-pagar">
+                    <span>Continuar</span>
+                    <span class="btn-arrow">→</span>
+                </button>
+                <div id="loginMensaje" class="mensaje-exito" style="display:none;"></div>
             </form>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../js/supabase-config.js"></script>
-    <script src="../js/supabase-client.js"></script>
-    <script src="../js/services/products.js"></script>
-    <script src="../js/services/reservations.js"></script>
-    <script src="../js/services/employees.js"></script>
-    <script src="../js/services/messages.js"></script>
-    <script src="../js/ui.js"></script>
-    <script src="../js/auth.js"></script>
-    <script src="../js/factura.js"></script>
-    <script src="js/dueno.js"></script>
+    <!-- MODAL CARRITO -->
+    <div class="modal-overlay" id="modalCarrito">
+        <div class="modal-carrito">
+            <button class="cerrar-modal" id="cerrarModalCarrito">✕</button>
+            <div class="modal-header">
+                <span class="modal-icon">🛍️</span>
+                <h2>Tu carrito</h2>
+            </div>
+            <div id="carritoContenido"></div>
+            <div class="carrito-total">
+                <span>Total:</span>
+                <span id="totalCarrito">Bs 0.00</span>
+            </div>
+            <div class="anticipo-info">
+                <p>Anticipo a pagar (20%): <strong id="anticipoCarrito">Bs 0.00</strong></p>
+            </div>
+            <div class="carrito-acciones">
+                <button class="btn btn-secundario" id="vaciarCarrito">Vaciar</button>
+                <button class="btn btn-primario" id="procederPago">Reservar (20%)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PAGO -->
+    <div class="modal-overlay" id="modalPago">
+        <div class="modal-pago">
+            <button class="cerrar-modal" id="cerrarModalPago">✕</button>
+            <div class="modal-header">
+                <span class="modal-icon">✦</span>
+                <h2>Reservar con anticipo</h2>
+                <p class="modal-sub">Pagas solo el <strong>20%</strong> ahora</p>
+                <p class="modal-sub"><span id="totalPago">Bs 0.00</span></p>
+            </div>
+
+            <div class="metodos-pago">
+                <button class="metodo-btn active" data-metodo="tarjeta">
+                    <span class="metodo-icon">💳</span> Tarjeta
+                </button>
+                <button class="metodo-btn" data-metodo="qr">
+                    <span class="metodo-icon">📱</span> QR
+                </button>
+            </div>
+
+            <form id="formPagoTarjeta" class="form-pago active">
+                <div class="form-group">
+                    <label for="nombre">Nombre completo *</label>
+                    <input type="text" id="nombre" placeholder="Ej: María González" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" placeholder="74954029">
+                </div>
+                <div class="form-group">
+                    <label for="tarjeta">Número de tarjeta</label>
+                    <input type="text" id="tarjeta" placeholder="1234 5678 9012 3456" maxlength="19">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="caducidad">MM/AA</label>
+                        <input type="text" id="caducidad" placeholder="12/28">
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" placeholder="123" maxlength="4">
+                    </div>
+                </div>
+                <div class="aviso-reserva">
+                    ⚠️ Tienes <strong>7 días</strong> para recoger. Si no recoges, no hay reembolso del 20%.
+                </div>
+                <button type="submit" class="btn-pagar">
+                    <span>Pagar anticipo 20%</span>
+                    <span class="btn-arrow">→</span>
+                </button>
+            </form>
+
+            <form id="formPagoQR" class="form-pago">
+                <div class="form-group">
+                    <label for="nombre-qr">Nombre completo *</label>
+                    <input type="text" id="nombre-qr" placeholder="Ej: María González" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono-qr">Teléfono</label>
+                    <input type="tel" id="telefono-qr" placeholder="74954029">
+                </div>
+                <div class="qr-box pago-qr-elegante">
+                    <p class="qr-instruccion">Escanea el código con tu app bancaria para pagar el anticipo del 20%</p>
+                    <div class="qr-frame">
+                        <img src="assets/qr-pago.jpeg" alt="QR de pago Stiliza" class="qr-imagen"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="qr-placeholder" style="display:none;"><span>QR de pago</span></div>
+                    </div>
+                    <p class="qr-hint">Luego confirma el pago abajo</p>
+                </div>
+                <div class="aviso-reserva">
+                    ⚠️ Tienes <strong>7 días</strong> para recoger. Si no recoges, no hay reembolso del 20%.
+                </div>
+                <button type="submit" class="btn-pagar">
+                    <span>Ya pagué – Generar factura</span>
+                    <span class="btn-arrow">→</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- MODAL FACTURA -->
+    <div class="modal-overlay" id="modalFactura">
+        <div class="modal-factura">
+            <button class="cerrar-modal" id="cerrarModalFactura">✕</button>
+            <div id="facturaContenido"></div>
+            <div class="factura-acciones">
+                <button class="btn btn-primario" id="btnImprimirFactura">🖨️ Imprimir / PDF</button>
+                <button class="btn btn-secundario" id="btnDescargarImagen">📷 Guardar</button>
+            </div>
+        </div>
+    </div>
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/services/products.js"></script>
+    <script src="js/services/reservations.js"></script>
+    <script src="js/services/employees.js"></script>
+    <script src="js/services/messages.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/factura.js"></script>
 </body>
 </html>
